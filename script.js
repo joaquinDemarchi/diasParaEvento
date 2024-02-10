@@ -98,6 +98,10 @@ function renderEvents(){
     document.querySelectorAll('.bDelete').forEach(button => {
         button.addEventListener('click', e => {
             const id = button.getAttribute('data-id');
+
+            // Eliminar el evento de localStorage
+            deleteEventFromLocalStorage(id);
+
             //los elimina usando un filtro en el array 
             events = events.filter(event =>(event.id !== id))
 
@@ -114,4 +118,21 @@ function save(data){
 
 function load(){
     return localStorage.getItem('items')
+}
+
+function deleteEventFromLocalStorage(id) {
+    // Obtener los eventos del localStorage
+    const json = load();
+    let eventsFromLocalStorage = [];
+    try {
+        eventsFromLocalStorage = JSON.parse(json) || [];
+    } catch (error) {
+        eventsFromLocalStorage = [];
+    }
+
+    // Filtrar los eventos para eliminar el evento con el ID dado
+    eventsFromLocalStorage = eventsFromLocalStorage.filter(event => event.id !== id);
+
+    // Guardar los eventos actualizados en el localStorage
+    save(JSON.stringify(eventsFromLocalStorage));
 }
