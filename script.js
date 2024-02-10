@@ -6,9 +6,27 @@ const eventDate = document.querySelector('#eventDate')
 const buttonAdd = document.querySelector('#bAdd')
 const eventsContainer = document.querySelector('#eventsContainer')
 
+//para almacenamiento de localstorage
+const json = load()
+
+try{
+    arr =JSON.parse(json);
+} catch (error){
+    arr = []
+}
+
+events = arr ? [...arr] : [];
+
+renderEvents();
+
 
 
 document.querySelector("form").addEventListener('submit', (e) => {
+    e.preventDefault()
+    addEvent();
+});
+
+buttonAdd.addEventListener('click', (e) => {
     e.preventDefault()
     addEvent();
 });
@@ -30,6 +48,8 @@ function addEvent(){
     };
 
     events.unshift(newEvent);
+
+    save(JSON.stringify(events))
 
     eventName.value = "";
 
@@ -87,3 +107,11 @@ function renderEvents(){
 }
 
 //fucnion para que se guarden los datos en le local storage
+
+function save(data){
+    return localStorage.setItem('items',data)
+}
+
+function load(){
+    return localStorage.getItem('items')
+}
