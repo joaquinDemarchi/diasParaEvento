@@ -120,11 +120,13 @@ function renderEvents(){
 
 //FUNCION PARA QUE LOS EVENTOS SE GUARDEN EN EL LOCAL STORAGE
 function save(data){
+    // toma un parámetro data y lo guarda en el localStorage bajo la clave 'items'
     return localStorage.setItem('items',data)
 }
 
 //FUNCION PARA QUE LOS EVENTOS SE CARGUEN EN EL LOCAL STORAGE
 function load(){
+    // devuelve el valor asociado a la clave 'items' en el localStorage
     return localStorage.getItem('items')
 }
 
